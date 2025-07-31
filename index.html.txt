@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Smash or Pass - Plats du Monde</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #fefefe;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+    }
+    #container {
+      text-align: center;
+      max-width: 500px;
+    }
+    img {
+      max-width: 100%;
+      height: auto;
+      border-radius: 12px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    }
+    h1 {
+      font-size: 2em;
+      margin: 20px 0;
+    }
+    .buttons {
+      margin-top: 20px;
+    }
+    button {
+      padding: 10px 20px;
+      margin: 0 10px;
+      font-size: 1.2em;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: 0.2s;
+    }
+    .smash { background-color: #4caf50; color: white; }
+    .pass { background-color: #f44336; color: white; }
+    #result {
+      margin-top: 30px;
+      font-size: 1.1em;
+    }
+  </style>
+</head>
+<body>
+  <div id="container">
+    <h1>Smash or Pass ?</h1>
+    <img id="food-img" src="" alt="Plat mystère">
+    <h2 id="food-name">Nom du plat</h2>
+    <div class="buttons">
+      <button class="smash" onclick="vote('smash')">🍽️ Smash</button>
+      <button class="pass" onclick="vote('pass')">❌ Pass</button>
+    </div>
+    <div id="result"></div>
+  </div>
+
+  <script>
+    const dishes = [
+      { name: "Ramen (Japon)", img: "https://upload.wikimedia.org/wikipedia/commons/b/b6/Tonkotsu_ramen_by_ayustety_in_Tokyo.jpg" },
+      { name: "Tacos (Mexique)", img: "https://upload.wikimedia.org/wikipedia/commons/4/4f/Taco_de_carnitas.jpg" },
+      { name: "Tartare de bœuf (France)", img: "https://upload.wikimedia.org/wikipedia/commons/f/f3/Steak_tartare_002.jpg" },
+      { name: "Curry de légumes (Inde)", img: "https://upload.wikimedia.org/wikipedia/commons/0/03/Mixed_vegetable_curry.JPG" },
+      { name: "Sushi (Japon)", img: "https://upload.wikimedia.org/wikipedia/commons/6/60/Sushi_platter.jpg" }
+    ];
+
+    let index = 0;
+    let smashCount = 0;
+    let passCount = 0;
+
+    function showDish() {
+      const dish = dishes[index];
+      document.getElementById("food-img").src = dish.img;
+      document.getElementById("food-name").textContent = dish.name;
+    }
+
+    function vote(choice) {
+      if (choice === 'smash') smashCount++;
+      else passCount++;
+
+      index++;
+      if (index < dishes.length) {
+        showDish();
+      } else {
+        document.getElementById("container").innerHTML = `
+          <h1>Résultat final</h1>
+          <p>🍽️ Smash : ${smashCount}</p>
+          <p>❌ Pass : ${passCount}</p>
+          <p>Merci pour ta participation !</p>
+        `;
+      }
+    }
+
+    // Lancer le jeu
+    showDish();
+  </script>
+</body>
+</html>
